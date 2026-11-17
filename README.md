@@ -15,11 +15,12 @@ Abra http://localhost:5000. Sem Arduino, marque **Modo simulação** no painel.
 3. Depois do deploy, abra o serviço → **Environment** e copie o valor de `TOKEN` (gerado automaticamente). A ponte precisa dele.
 
 ## Ligar o Arduino ao site
-No PC com o Arduino na USB (feche o Monitor Serial da IDE antes):
+Uma vez só:
 ```
 pip install pyserial requests
-set URL=https://SEU-APP.onrender.com
-set TOKEN=a-mesma-senha-do-render
-python ponte.py COM3
 ```
+e copie `.env.exemplo` para `.env`, preenchendo `URL` e `TOKEN` (o `.env` não vai para o GitHub).
+
+Depois, com o Arduino na USB (e o Monitor Serial da IDE fechado), dê dois cliques em `iniciar_ponte.bat`.
+A porta é detectada sozinha; se errar, coloque `PORTA=COMx` no `.env`.
 O Arduino precisa imprimir uma linha por leitura com o LDR primeiro e o PIR depois (ex.: `350,1`). Veja `arduino/parada/parada.ino`.
