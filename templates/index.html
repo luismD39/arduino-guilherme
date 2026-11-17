@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parada de Ônibus Inteligente</title>
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; background: #f1f3f6; color: #1d2330; }
+    main { max-width: 1200px; margin: auto; padding: 16px; display: grid; gap: 16px; grid-template-columns: 1fr 280px; }
+    h1 { grid-column: 1 / -1; margin: 0; font-size: 1.6rem; }
+    canvas { width: 100%; border-radius: 12px; display: block; background: #6aa84f; }
+    .painel, .texto { background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 1px 3px #0002; }
+    .painel h2 { margin-top: 0; font-size: 1.1rem; }
+    .linha { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #eee; }
+    .grande { font-size: 1.4rem; font-weight: 700; }
+    .led { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: #ccc; vertical-align: middle; }
+    .led.verde.on { background: #2ecc40; box-shadow: 0 0 8px #2ecc40; }
+    .led.vermelho.on { background: #ff4136; box-shadow: 0 0 8px #ff4136; }
+    .status { font-weight: 700; padding: 2px 10px; border-radius: 999px; font-size: .9rem; }
+    .status.on { background: #d4f5dc; color: #13702c; }
+    .status.off { background: #fde0de; color: #a3231a; }
+    .status.sim { background: #e3ecfd; color: #1f4fa3; }
+    #conexao { font-size: .85rem; color: #667; margin: 10px 0; }
+    fieldset { border: 1px dashed #bbb; border-radius: 8px; margin-top: 12px; }
+    fieldset input[type=range] { width: 100%; }
+    .texto { grid-column: 1 / -1; line-height: 1.5; }
+    @media (max-width: 800px) { main { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>🚌 Parada de Ônibus Inteligente</h1>
+
+  <canvas id="cena" width="900" height="520" data-limite="{{ limite }}"
+          aria-label="Vista de cima da parada de ônibus"></canvas>
+
+  <aside class="painel">
+    <h2>Dashboard</h2>
+    <div class="linha"><span>Horário</span><span id="hora" class="grande">--:--</span></div>
+    <div class="linha"><span>Pessoas detectadas</span><span id="pessoas" class="grande">0</span></div>
+    <div class="linha"><span>Luminosidade (LDR)</span><span id="ldr">-</span></div>
+    <div class="linha"><span>Movimento (PIR)</span><span id="pir">-</span></div>
+    <div class="linha"><span>Iluminação (D8)</span><span class="led verde" id="led-verde"></span></div>
+    <div class="linha"><span>Pessoa esperando (D9)</span><span class="led vermelho" id="led-vermelho"></span></div>
+    <div class="linha"><span>Arduino</span><span id="status" class="status off">Desconectado</span></div>
+    <p id="conexao">Aguardando Arduino...</p>
+
+    <fieldset>
+      <legend><label><input type="checkbox" id="sim"> Modo simulação</label></legend>
+      <label>LDR: <span id="sim-ldr-valor">800</span>
+        <input type="range" id="sim-ldr" min="0" max="1023" value="800"></label>
+      <label><input type="checkbox" id="sim-pir"> Movimento</label>
+    </fieldset>
+  </aside>
+
+  <section class="texto">
+    <h2>Transporte público e cidades inteligentes</h2>
+    <p>O transporte público tira carros das ruas, reduz congestionamento e poluição e leva pessoas ao trabalho e à escola por um custo menor.
+       Uma parada bem iluminada e sinalizada deixa a espera mais segura e confortável.</p>
+    <p>Em uma cidade inteligente, sensores ajudam a infraestrutura a reagir sozinha: aqui o LDR acende a iluminação quando escurece
+       e o sensor de presença avisa que há alguém esperando. Esses dados podem ajudar a planejar horários e linhas de ônibus.</p>
+  </section>
+</main>
+<script src="{{ url_for('static', filename='cena.js') }}"></script>
+</body>
+</html>
