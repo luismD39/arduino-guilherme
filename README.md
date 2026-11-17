@@ -11,10 +11,8 @@ Abra http://localhost:5000. Sem Arduino, marque **Modo simulação** no painel.
 
 ## Publicar no Render
 1. Suba esta pasta para um repositório no GitHub.
-2. No Render: **New → Web Service**, escolha o repositório.
-3. Build command: `pip install -r requirements.txt`
-4. Start command: `gunicorn app:app --workers 1`
-5. (Recomendado) Em **Environment**, crie `TOKEN` com uma senha qualquer, para só a sua ponte poder mandar dados.
+2. No Render: **New → Blueprint**, escolha o repositório. O `render.yaml` já configura tudo.
+3. Depois do deploy, abra o serviço → **Environment** e copie o valor de `TOKEN` (gerado automaticamente). A ponte precisa dele.
 
 ## Ligar o Arduino ao site
 No PC com o Arduino na USB (feche o Monitor Serial da IDE antes):
